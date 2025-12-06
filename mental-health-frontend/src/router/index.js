@@ -1,0 +1,105 @@
+import { createRouter, createWebHistory } from 'vue-router'
+import Layout from '@/layouts/MainLayout.vue'
+
+const routes = [
+  {
+    path: '/',
+    component: Layout,
+    redirect: '/dashboard',
+    children: [
+      {
+        path: 'dashboard',
+        name: 'Dashboard',
+        component: () => import('@/views/Dashboard/index.vue')
+      },
+      // 成员A：AI情绪监控与预警模块
+      {
+        path: 'emotion',
+        name: 'EmotionMonitor',
+        component: () => import('@/views/EmotionMonitor/index.vue')
+      },
+      {
+        path: 'emotion/collect',
+        name: 'EmotionCollect',
+        component: () => import('@/views/EmotionMonitor/Collect.vue')
+      },
+      {
+        path: 'emotion/archive',
+        name: 'EmotionArchive',
+        component: () => import('@/views/EmotionMonitor/Archive.vue')
+      },
+      {
+        path: 'emotion/alert',
+        name: 'EmotionAlert',
+        component: () => import('@/views/EmotionMonitor/Alert.vue')
+      },
+      // 成员B：多维解压服务模块
+      {
+        path: 'decompress',
+        name: 'DecompressService',
+        component: () => import('@/views/DecompressService/index.vue')
+      },
+      {
+        path: 'decompress/games',
+        name: 'DecompressGames',
+        component: () => import('@/views/DecompressService/Games.vue')
+      },
+      {
+        path: 'decompress/questionnaire',
+        name: 'DecompressQuestionnaire',
+        component: () => import('@/views/DecompressService/Questionnaire.vue')
+      },
+      // 成员C：积极情绪赋能模块
+      {
+        path: 'positive',
+        name: 'PositiveEmpowerment',
+        component: () => import('@/views/PositiveEmpowerment/index.vue')
+      },
+      {
+        path: 'positive/content',
+        name: 'PositiveContent',
+        component: () => import('@/views/PositiveEmpowerment/Content.vue')
+      },
+      {
+        path: 'positive/diary',
+        name: 'PositiveDiary',
+        component: () => import('@/views/PositiveEmpowerment/Diary.vue')
+      },
+      // 成员D：个性化心理方案与数据模块
+      {
+        path: 'personalized',
+        name: 'PersonalizedPlan',
+        component: () => import('@/views/PersonalizedPlan/index.vue')
+      },
+      {
+        path: 'personalized/plan',
+        name: 'PersonalizedPlanDetail',
+        component: () => import('@/views/PersonalizedPlan/Plan.vue')
+      },
+      {
+        path: 'personalized/report',
+        name: 'PersonalizedReport',
+        component: () => import('@/views/PersonalizedPlan/Report.vue')
+      },
+      // 成员E：系统集成 + 界面引导智能助手
+      {
+        path: 'system',
+        name: 'SystemIntegration',
+        component: () => import('@/views/SystemIntegration/index.vue')
+      },
+      {
+        path: 'system/assistant',
+        name: 'SystemAssistant',
+        component: () => import('@/views/SystemIntegration/Assistant.vue')
+      }
+    ]
+  }
+]
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes
+})
+
+export default router
+
