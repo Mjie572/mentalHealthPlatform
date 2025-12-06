@@ -1,0 +1,50 @@
+[
+  {
+    "id": "4c0ebdde-83b8-46f3-87eb-9c6c70305242",
+    "appointmentId": "APT-1765049245707",
+    "userId": "test-user-integration-123",
+    "consultantId": "C001",
+    "consultantName": "模拟咨询师A",
+    "emotionTag": "焦虑",
+    "timeSlot": "2025-12-08 14:00-15:00",
+    "status": "pending",
+    "createdAt": "2025-12-06T19:27:25.707Z",
+    "updatedAt": "2025-12-06T19:27:25.707Z"
+  },
+  {
+    "id": "92faa204-1314-4304-8091-97161286f8e2",
+    "appointmentId": "APT-1765049517219",
+    "userId": "test-connectivity-user-123",
+    "consultantId": "C001",
+    "consultantName": "模拟咨询师A",
+    "emotionTag": "低落",
+    "timeSlot": "2025-12-08 14:00-15:00",
+    "status": "pending",
+    "createdAt": "2025-12-06T19:31:57.219Z",
+    "updatedAt": "2025-12-06T19:31:57.219Z"
+  },
+  {
+    "id": "46f8cd75-aa1d-4446-aacb-9ef4efa65ebf",
+    "appointmentId": "APT-1765049517221",
+    "userId": "test-connectivity-user-123",
+    "consultantId": "C001",
+    "consultantName": "模拟咨询师A",
+    "emotionTag": "焦虑",
+    "timeSlot": "2025-12-08 14:00-15:00",
+    "status": "pending",
+    "createdAt": "2025-12-06T19:31:57.221Z",
+    "updatedAt": "2025-12-06T19:31:57.221Z"
+  },
+  {
+    "id": "12c8d376-78e4-4c93-aabf-e184ca34b6b6",
+    "appointmentId": "APT-1765049524735",
+    "userId": "test-connectivity-user-123",
+    "consultantId": "C001",
+    "consultantName": "模拟咨询师A",
+    "emotionTag": "焦虑",
+    "timeSlot": "2025-12-08 14:00-15:00",
+    "status": "pending",
+    "createdAt": "2025-12-06T19:32:04.735Z",
+    "updatedAt": "2025-12-06T19:32:04.735Z"
+  }
+]
