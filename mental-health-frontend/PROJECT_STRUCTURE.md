@@ -8,7 +8,7 @@ mental-health-frontend/
 │   ├── api/                          # API 接口文件目录
 │   │   ├── request.js                # 统一请求封装（请求/响应拦截器）
 │   │   ├── emotion.js                # 成员A：情绪监控模块 API
-│   │   ├── decompress.js             # 成员B：解压服务模块 API
+│   │   ├── decompress.js             # 解压服务模块 API
 │   │   ├── positive.js               # 成员C：积极赋能模块 API
 │   │   ├── personalized.js           # 成员D：个性化方案模块 API
 │   │   └── system.js                 # 成员E：系统集成模块 API
@@ -19,7 +19,7 @@ mental-health-frontend/
 │   │   │   ├── BaseLoading.vue            # 加载组件
 │   │   │   ├── BaseModal.vue              # 弹窗组件
 │   │   │   └── BaseAssistantButton.vue    # 智能助手按钮（成员E开发）
-│   │   ├── decompress/               # 成员B：解压服务模块组件
+│   │   ├── decompress/               # 解压服务模块组件
 │   │   │   └── GamePlaceholder.vue         # 小游戏占位组件
 │   │   └── positive/                 # 成员C：积极赋能模块组件
 │   │       └── DiaryPlaceholder.vue        # 感恩日记占位组件
@@ -45,10 +45,10 @@ mental-health-frontend/
 │   │   │   ├── Collect.vue           # 情绪采集页面
 │   │   │   ├── Archive.vue           # 情绪档案可视化页面
 │   │   │   └── Alert.vue             # 预警通知页面
-│   │   ├── DecompressService/        # 成员B：多维解压服务模块
+│   │   ├── DecompressService/        # 多维解压服务模块
 │   │   │   ├── index.vue             # 模块首页
 │   │   │   ├── Games.vue             # 解压小游戏页面
-│   │   │   └── Questionnaire.vue     # 解压题库页面
+│   │   │   └── Questionnaire.vue     # 心理健康自测页面
 │   │   ├── PositiveEmpowerment/      # 成员C：积极情绪赋能模块
 │   │   │   ├── index.vue             # 模块首页
 │   │   │   ├── Content.vue           # 内容推送页面
@@ -111,7 +111,7 @@ mental-health-frontend/
 │   └── /emotion/alert      # 预警通知
 ├── /decompress             # 成员B：解压服务模块
 │   ├── /decompress/games  # 解压小游戏
-│   └── /decompress/questionnaire # 解压题库
+│   └── /decompress/questionnaire # 心理健康自测
 ├── /positive               # 成员C：积极赋能模块
 │   ├── /positive/content  # 内容推送
 │   └── /positive/diary    # 感恩日记

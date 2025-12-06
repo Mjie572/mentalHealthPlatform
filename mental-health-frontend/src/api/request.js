@@ -44,11 +44,20 @@ service.interceptors.response.use(
     const res = response.data
     
     // 根据后端返回的数据结构进行处理
-    // 示例：如果后端返回 { code: 200, data: {...}, message: '...' }
-    if (res.code && res.code !== 200) {
-      // 处理业务错误
-      showMessage(res.message || '请求失败', 'error')
-      return Promise.reject(new Error(res.message || '请求失败'))
+    // Demo版格式：{ code: 200, msg: "Demo版模拟数据", data: {...} }
+    if (res && typeof res === 'object') {
+      // 如果返回的是Demo版格式
+      if (res.code !== undefined) {
+        if (res.code !== 200) {
+          // 处理业务错误
+          showMessage(res.msg || res.message || '请求失败', 'error')
+          return Promise.reject(new Error(res.msg || res.message || '请求失败'))
+        }
+        // 返回data字段（Demo版格式）
+        return res
+      }
+      // 如果直接返回数据，包装成统一格式
+      return { code: 200, msg: 'success', data: res }
     }
     
     return res

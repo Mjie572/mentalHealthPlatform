@@ -2,33 +2,57 @@
   <div class="module-decompress">
     <div class="module-header">
       <h2 class="module-title">多维解压服务</h2>
-      <p class="module-desc">成员B开发：前端 + Dify 为主，含小游戏、题库页面</p>
+      <p class="module-desc">通过小游戏、心理测试等方式，帮助您缓解压力，保持心理健康</p>
     </div>
 
     <div class="function-list">
-      <div
+      <router-link
+        to="/decompress/games"
         class="function-item"
-        @click="$router.push('/decompress/games')"
       >
         <div class="function-icon">🎮</div>
         <div class="function-content">
           <h3 class="function-title">解压小游戏</h3>
-          <p class="function-desc">成员B开发：对接小游戏功能</p>
+          <p class="function-desc">通过轻松的小游戏缓解压力，放松心情</p>
         </div>
         <span class="function-arrow">›</span>
-      </div>
+      </router-link>
 
-      <div
+      <router-link
+        to="/decompress/questionnaire"
         class="function-item"
-        @click="$router.push('/decompress/questionnaire')"
       >
         <div class="function-icon">📋</div>
         <div class="function-content">
-          <h3 class="function-title">解压题库</h3>
-          <p class="function-desc">成员B开发：对接题库页面</p>
+          <h3 class="function-title">心理健康自测</h3>
+          <p class="function-desc">通过专业心理测试，了解自己的心理状态</p>
         </div>
         <span class="function-arrow">›</span>
-      </div>
+      </router-link>
+
+      <router-link
+        to="/decompress/advisor"
+        class="function-item"
+      >
+        <div class="function-icon">🤖</div>
+        <div class="function-content">
+          <h3 class="function-title">心理顾问</h3>
+          <p class="function-desc">AI智能心理顾问咨询</p>
+        </div>
+        <span class="function-arrow">›</span>
+      </router-link>
+
+      <router-link
+        to="/decompress/checkin"
+        class="function-item"
+      >
+        <div class="function-icon">📅</div>
+        <div class="function-content">
+          <h3 class="function-title">活动打卡</h3>
+          <p class="function-desc">每日打卡，积累积分</p>
+        </div>
+        <span class="function-arrow">›</span>
+      </router-link>
     </div>
 
     <div class="dev-tips">
@@ -45,7 +69,21 @@
 </template>
 
 <script setup>
-// 成员B：多维解压服务模块首页
+import { onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+// 确保路由正常工作
+onMounted(() => {
+  console.log('多维解压服务页面已加载')
+  console.log('可用路由:', [
+    '/decompress/games',
+    '/decompress/questionnaire',
+    '/decompress/advisor',
+    '/decompress/checkin'
+  ])
+})
 </script>
 
 <style scoped>
@@ -86,12 +124,31 @@
   border-radius: var(--border-radius-lg);
   box-shadow: var(--shadow-sm);
   cursor: pointer;
-  transition: all var(--transition-base);
+  transition: all 0.3s ease;
+  user-select: none;
+  -webkit-user-select: none;
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  z-index: 100;
+  pointer-events: auto !important;
+  width: 100%;
+}
+
+.function-item * {
+  pointer-events: none;
 }
 
 .function-item:hover {
   box-shadow: var(--shadow-md);
   transform: translateX(4px);
+  background: #fafafa;
+}
+
+.function-item:active {
+  transform: translateX(2px);
+  box-shadow: var(--shadow-sm);
+  background: #f5f5f5;
 }
 
 .function-icon {

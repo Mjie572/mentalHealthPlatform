@@ -33,7 +33,7 @@ const routes = [
         name: 'EmotionAlert',
         component: () => import('@/views/EmotionMonitor/Alert.vue')
       },
-      // 成员B：多维解压服务模块
+      // 多维解压服务模块
       {
         path: 'decompress',
         name: 'DecompressService',
@@ -48,6 +48,16 @@ const routes = [
         path: 'decompress/questionnaire',
         name: 'DecompressQuestionnaire',
         component: () => import('@/views/DecompressService/Questionnaire.vue')
+      },
+      {
+        path: 'decompress/advisor',
+        name: 'DecompressAdvisor',
+        component: () => import('@/views/DecompressService/Advisor.vue')
+      },
+      {
+        path: 'decompress/checkin',
+        name: 'DecompressCheckIn',
+        component: () => import('@/views/DecompressService/CheckIn.vue')
       },
       // 成员C：积极情绪赋能模块
       {

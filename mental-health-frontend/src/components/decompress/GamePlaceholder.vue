@@ -2,7 +2,7 @@
   <div class="game-placeholder">
     <div class="placeholder-icon">🎮</div>
     <h3 class="placeholder-title">小游戏占位组件</h3>
-    <p class="placeholder-desc">成员B开发：在此组件中实现小游戏交互逻辑</p>
+    <p class="placeholder-desc">在此组件中实现小游戏交互逻辑</p>
     <div class="placeholder-note">
       <p>组件位置：components/decompress/GamePlaceholder.vue</p>
       <p>命名规范：Decom-xxx.vue</p>
@@ -11,7 +11,7 @@
 </template>
 
 <script setup>
-// 成员B开发：小游戏占位组件
+// 小游戏占位组件
 // 当前仅保留基础结构与注释，无具体业务逻辑
 // TODO: 实现小游戏交互功能
 </script>

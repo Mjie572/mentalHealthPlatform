@@ -24,7 +24,7 @@ npm run dev
 - 开发页面：`Collect.vue`, `Archive.vue`, `Alert.vue`
 - API文件：`src/api/emotion.js`
 
-### 成员B：多维解压服务
+### 多维解压服务
 - 进入：`src/views/DecompressService/`
 - 开发页面：`Games.vue`, `Questionnaire.vue`
 - 组件：`src/components/decompress/GamePlaceholder.vue`
