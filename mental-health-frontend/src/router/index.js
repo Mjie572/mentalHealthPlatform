@@ -91,7 +91,30 @@ const routes = [
         path: 'system/assistant',
         name: 'SystemAssistant',
         component: () => import('@/views/SystemIntegration/Assistant.vue')
-      }
+      },
+      // 用户账户管理模块（成员E）
+      {
+        path: 'system/user-account',
+        name: 'UserAccount',
+        component: () => import('@/views/GroupManagement/UserAccount.vue')
+      },
+      {
+        path: 'system/login',
+        name: 'GroupLogin',
+        component: () => import('@/views/GroupManagement/Login.vue')
+      },
+      {
+        path: 'system/register',
+        name: 'GroupRegister',
+        component: () => import('@/views/GroupManagement/Register.vue')
+      },
+      {
+        path: 'system/account',
+        name: 'GroupAccount',
+        component: () => import('@/views/GroupManagement/Account.vue'),
+        meta: { requiresAuth: true }
+      },
+
     ]
   }
 ]
@@ -99,6 +122,16 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes
+})
+
+// 全局路由守卫：需要登录的页面会检查 token（支持 localStorage 与 sessionStorage）
+router.beforeEach((to, from, next) => {
+  const token = localStorage.getItem('token') || sessionStorage.getItem('token')
+  if (to.meta && to.meta.requiresAuth && !token) {
+    next({ path: '/system/login', query: { redirect: to.fullPath } })
+  } else {
+    next()
+  }
 })
 
 export default router

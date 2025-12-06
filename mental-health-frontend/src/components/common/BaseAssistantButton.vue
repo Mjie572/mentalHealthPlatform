@@ -7,11 +7,10 @@
 
 <script setup>
 // 成员E开发：界面引导智能助手
-// 当前仅保留按钮占位与唤醒触发入口
-
+// 点击悬浮球唤醒全局助手浮框
 const handleClick = () => {
-  // TODO: 成员E实现智能助手交互逻辑
-  console.log('唤醒智能助手')
+  const event = new CustomEvent('assistant:open', { detail: { source: 'floating-button' } })
+  window.dispatchEvent(event)
 }
 </script>
 

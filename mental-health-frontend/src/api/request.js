@@ -5,6 +5,7 @@
  */
 
 import axios from 'axios'
+import router from '@/router/index.js'
 
 // 简单的消息提示函数（可替换为实际使用的UI库）
 const showMessage = (message, type = 'error') => {
@@ -23,8 +24,8 @@ const service = axios.create({
 service.interceptors.request.use(
   (config) => {
     // 在发送请求之前做些什么
-    // 例如：添加token
-    const token = localStorage.getItem('token')
+    // 例如：添加token（支持 localStorage 与 sessionStorage）
+    const token = localStorage.getItem('token') || sessionStorage.getItem('token')
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
     }
@@ -60,11 +61,20 @@ service.interceptors.response.use(
     // 处理HTTP错误
     if (error.response) {
       switch (error.response.status) {
-        case 401:
+        case 401: {
           showMessage('未授权，请重新登录', 'error')
-          // 可以跳转到登录页
-          // router.push('/login')
+          // 清理本地登录状态
+          localStorage.removeItem('token')
+          localStorage.removeItem('username')
+          sessionStorage.removeItem('token')
+          sessionStorage.removeItem('username')
+          // 重定向到登录页，带上当前路径作为redirect
+          const currentPath = router.currentRoute.value.fullPath
+          if (!currentPath.startsWith('/system/login')) {
+            router.replace({ path: '/system/login', query: { redirect: currentPath } })
+          }
           break
+        }
         case 403:
           showMessage('拒绝访问', 'error')
           break
