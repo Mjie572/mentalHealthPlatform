@@ -5,7 +5,6 @@
  */
 
 import axios from 'axios'
-import router from '@/router/index.js'
 
 // 简单的消息提示函数（可替换为实际使用的UI库）
 const showMessage = (message, type = 'error') => {
@@ -24,8 +23,8 @@ const service = axios.create({
 service.interceptors.request.use(
   (config) => {
     // 在发送请求之前做些什么
-    // 例如：添加token（支持 localStorage 与 sessionStorage）
-    const token = localStorage.getItem('token') || sessionStorage.getItem('token')
+    // 例如：添加token
+    const token = localStorage.getItem('token')
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
     }
@@ -45,12 +44,20 @@ service.interceptors.response.use(
     const res = response.data
     
     // 根据后端返回的数据结构进行处理
-    // 示例：如果后端返回 { code: 200, data: {...}, message: '...' }
-    if (res && typeof res.code !== 'undefined' && res.code !== 200) {
-      const errMsg = res.message || res.msg || res.error || '请求失败'
-      // 处理业务错误
-      showMessage(errMsg, 'error')
-      return Promise.reject(new Error(errMsg))
+    // Demo版格式：{ code: 200, msg: "Demo版模拟数据", data: {...} }
+    if (res && typeof res === 'object') {
+      // 如果返回的是Demo版格式
+      if (res.code !== undefined) {
+        if (res.code !== 200) {
+          // 处理业务错误
+          showMessage(res.msg || res.message || '请求失败', 'error')
+          return Promise.reject(new Error(res.msg || res.message || '请求失败'))
+        }
+        // 返回data字段（Demo版格式）
+        return res
+      }
+      // 如果直接返回数据，包装成统一格式
+      return { code: 200, msg: 'success', data: res }
     }
     
     return res
@@ -62,20 +69,11 @@ service.interceptors.response.use(
     // 处理HTTP错误
     if (error.response) {
       switch (error.response.status) {
-        case 401: {
+        case 401:
           showMessage('未授权，请重新登录', 'error')
-          // 清理本地登录状态
-          localStorage.removeItem('token')
-          localStorage.removeItem('username')
-          sessionStorage.removeItem('token')
-          sessionStorage.removeItem('username')
-          // 重定向到登录页，带上当前路径作为redirect
-          const currentPath = router.currentRoute.value.fullPath
-          if (!currentPath.startsWith('/system/login')) {
-            router.replace({ path: '/system/login', query: { redirect: currentPath } })
-          }
+          // 可以跳转到登录页
+          // router.push('/login')
           break
-        }
         case 403:
           showMessage('拒绝访问', 'error')
           break
@@ -86,7 +84,7 @@ service.interceptors.response.use(
           showMessage('服务器错误', 'error')
           break
         default:
-          showMessage(error.response.data?.message || error.response.data?.msg || '请求失败', 'error')
+          showMessage(error.response.data?.message || '请求失败', 'error')
       }
     } else {
       showMessage('网络错误，请检查网络连接', 'error')

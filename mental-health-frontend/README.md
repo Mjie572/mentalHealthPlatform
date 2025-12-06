@@ -20,7 +20,7 @@ mental-health-frontend/
 │   ├── api/                    # API 接口文件
 │   │   ├── request.js          # 统一请求封装
 │   │   ├── emotion.js          # 成员A：情绪监控模块 API
-│   │   ├── decompress.js       # 成员B：解压服务模块 API
+│   │   ├── decompress.js       # 解压服务模块 API
 │   │   ├── positive.js         # 成员C：积极赋能模块 API
 │   │   ├── personalized.js     # 成员D：个性化方案模块 API
 │   │   └── system.js           # 成员E：系统集成模块 API
@@ -30,7 +30,7 @@ mental-health-frontend/
 │   │   │   ├── BaseLoading.vue           # 加载组件
 │   │   │   ├── BaseModal.vue              # 弹窗组件
 │   │   │   └── BaseAssistantButton.vue    # 智能助手按钮（成员E开发）
-│   │   ├── decompress/         # 成员B：解压服务模块组件
+│   │   ├── decompress/         # 解压服务模块组件
 │   │   │   └── GamePlaceholder.vue        # 小游戏占位组件
 │   │   └── positive/           # 成员C：积极赋能模块组件
 │   │       └── DiaryPlaceholder.vue       # 感恩日记占位组件
@@ -46,7 +46,7 @@ mental-health-frontend/
 │   ├── views/                  # 页面目录
 │   │   ├── Dashboard/          # 仪表盘
 │   │   ├── EmotionMonitor/     # 成员A：AI情绪监控与预警模块
-│   │   ├── DecompressService/  # 成员B：多维解压服务模块
+│   │   ├── DecompressService/  # 多维解压服务模块
 │   │   ├── PositiveEmpowerment/# 成员C：积极情绪赋能模块
 │   │   ├── PersonalizedPlan/   # 成员D：个性化心理方案与数据模块
 │   │   └── SystemIntegration/  # 成员E：系统集成 + 界面引导智能助手模块
@@ -94,7 +94,7 @@ npm run build
   - 情绪档案可视化 (`/emotion/archive`)
   - 预警通知组件 (`/emotion/alert`)
 
-### 成员B：多维解压服务模块
+### 多维解压服务模块
 
 - **路由前缀**: `/decompress`
 - **组件命名**: `Decom-xxx.vue`（如 `Decom-GamePlaceholder.vue`）
@@ -104,7 +104,7 @@ npm run build
 - **组件位置**: `components/decompress/`
 - **核心功能**:
   - 解压小游戏 (`/decompress/games`)
-  - 解压题库 (`/decompress/questionnaire`)
+  - 心理健康自测 (`/decompress/questionnaire`)
 
 ### 成员C：积极情绪赋能模块
 
