@@ -46,10 +46,11 @@ service.interceptors.response.use(
     
     // 根据后端返回的数据结构进行处理
     // 示例：如果后端返回 { code: 200, data: {...}, message: '...' }
-    if (res.code && res.code !== 200) {
+    if (res && typeof res.code !== 'undefined' && res.code !== 200) {
+      const errMsg = res.message || res.msg || res.error || '请求失败'
       // 处理业务错误
-      showMessage(res.message || '请求失败', 'error')
-      return Promise.reject(new Error(res.message || '请求失败'))
+      showMessage(errMsg, 'error')
+      return Promise.reject(new Error(errMsg))
     }
     
     return res
@@ -85,7 +86,7 @@ service.interceptors.response.use(
           showMessage('服务器错误', 'error')
           break
         default:
-          showMessage(error.response.data?.message || '请求失败', 'error')
+          showMessage(error.response.data?.message || error.response.data?.msg || '请求失败', 'error')
       }
     } else {
       showMessage('网络错误，请检查网络连接', 'error')

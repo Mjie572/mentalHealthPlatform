@@ -101,6 +101,11 @@ app.get('/api/auth/me', (req, res) => {
 
 app.get('/api/health', (req, res) => send(res, 200, { status: 'ok' }, 'healthy'))
 
+// === Positive Empowerment Module (isolated) ===
+require('dotenv').config({ path: path.join(__dirname, '.env') })
+const positiveRoutes = require('./routes/positive')
+app.use('/api', positiveRoutes)
+
 app.listen(PORT, () => {
   console.log(`Auth backend running at http://localhost:${PORT}`)
 })

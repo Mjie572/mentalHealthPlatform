@@ -11,7 +11,9 @@
       </div>
       <div class="row">
         <label class="checkbox">
-          <input type="checkbox" v-model="rememberMe" /> 记住我
+          <input type="checkbox" v-model="rememberMe" /> 
+          <p style="text-align: center;">记住我</p>
+          
         </label>
         <button type="button" class="link" @click="handleForgot">忘记密码？</button>
       </div>

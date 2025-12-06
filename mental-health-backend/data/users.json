@@ -5,5 +5,12 @@
     "email": "2823613351@qq.com",
     "password_hash": "$2a$10$YmB0qLFAjBqqqUr1H35RSu3doD8vBihmOQqln6fq1dZj/dQtF4GJu",
     "createdAt": "2025-12-06T14:17:10.409Z"
+  },
+  {
+    "id": "54f54fed-dbe6-4874-b3cd-005d5976e43b",
+    "username": "123",
+    "email": "mjiexia7@gmail.com",
+    "password_hash": "$2a$10$quhpMT.ArJvP4zqriYWvN.UxXM/i2j2bTIxGBGAGOJHwodkqqvARm",
+    "createdAt": "2025-12-06T18:22:02.600Z"
   }
 ]

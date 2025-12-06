@@ -75,7 +75,11 @@ const suggestions = [
   '使用指南',
 ]
 
-const difyClient = createDifyClient({ initialBaseURL: '/v1', initialApiKey: 'app-MuJVvt9C7n5ee2LAygf2wQUC' })
+// 使用环境变量控制 Dify 是否启用，避免未配置时请求错误
+const DIFY_BASE_URL = import.meta.env.VITE_DIFY_BASE_URL || ''
+const DIFY_API_KEY = import.meta.env.VITE_DIFY_API_KEY || ''
+const difyEnabled = !!DIFY_BASE_URL && !!DIFY_API_KEY
+const difyClient = createDifyClient({ initialBaseURL: DIFY_BASE_URL, initialApiKey: DIFY_API_KEY })
 
 // 获取当前用户ID（用户名），未登录则为 guest
 const getCurrentUserId = () => localStorage.getItem('username') || sessionStorage.getItem('username') || 'guest'
@@ -118,6 +122,18 @@ const clearConversation = () => {
 const sendMessage = (queryText, isInitial = false) => {
   if (!isInitial && !queryText.trim()) return;
 
+  // 未配置 Dify 时，提示并跳过真实请求
+  if (!difyEnabled) {
+    loading.value = false;
+    const tip = '助手暂未配置，当前仅展示 UI（请设置 VITE_DIFY_BASE_URL 与 VITE_DIFY_API_KEY 后启用）。'
+    if (isInitial) {
+      messages.value.push({ role: 'bot', content: tip, time: formatTime() })
+    } else {
+      messages.value.push({ role: 'bot', content: tip, time: formatTime() })
+    }
+    return;
+  }
+
   if (currentStreamStopFunction) {
     currentStreamStopFunction();
     currentStreamStopFunction = null;
@@ -149,7 +165,6 @@ const sendMessage = (queryText, isInitial = false) => {
     onComplete: () => {
       loading.value = false;
       currentStreamStopFunction = null;
-      // If the bot message is empty after completion (e.g., no content received), remove it
       if (messages.value[botMessageIndex]?.content === '') {
         messages.value.splice(botMessageIndex, 1);
       }
@@ -158,7 +173,7 @@ const sendMessage = (queryText, isInitial = false) => {
       loading.value = false;
       currentStreamStopFunction = null;
       const errorMessage = '请求失败：' + (err?.message || '未知错误');
-      messages.value[botMessageIndex] = { role: 'bot error', content: errorMessage, time: formatTime() }; // Replace with error message
+      messages.value[botMessageIndex] = { role: 'bot error', content: errorMessage, time: formatTime() };
     }
   });
 };
@@ -170,7 +185,11 @@ const handleSuggestion = (text) => {
 
 onMounted(() => {
   window.addEventListener('assistant:open', openHandler);
-  sendMessage('你好', true); // 初始问候
+  if (difyEnabled) {
+    sendMessage('你好', true); // 初始问候
+  } else {
+    messages.value.push({ role: 'bot', content: '助手暂未配置，当前仅展示 UI。', time: formatTime() })
+  }
 });
 
 onBeforeUnmount(() => {
