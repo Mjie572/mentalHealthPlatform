@@ -17,8 +17,44 @@ const USER_FILE = path.join(DATA_DIR, 'users.json')
 if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR)
 if (!fs.existsSync(USER_FILE)) fs.writeFileSync(USER_FILE, '[]')
 
-app.use(cors({ origin: '*', methods: ['GET', 'POST'], allowedHeaders: ['Content-Type', 'Authorization'] }))
+app.use(cors({ origin: '*', methods: ['GET', 'POST'], allowedHeaders: ['Content-Type', 'Authorization', 'X-User-Id'] }))
 app.use(express.json())
+
+// JWT认证中间件（可选，用于需要认证的接口）
+const authenticateToken = (req, res, next) => {
+  const auth = req.headers.authorization || ''
+  if (!auth.startsWith('Bearer ')) {
+    // Demo版允许无token访问
+    return next()
+  }
+  const token = auth.slice('Bearer '.length)
+  try {
+    const payload = jwt.verify(token, JWT_SECRET)
+    req.user = payload
+    next()
+  } catch (e) {
+    // Demo版允许token验证失败
+    next()
+  }
+}
+
+// 注册模块路由
+const emotionRoutes = require('./routes/emotionRoutes')
+const aiRoutes = require('./routes/aiRoutes')
+const professionalRoutes = require('./routes/professionalRoutes')
+const moduleIntegrationRoutes = require('./routes/moduleIntegrationRoutes')
+
+// 模块1：情绪监控路由（需要认证）
+app.use('/api/emotion', authenticateToken, emotionRoutes)
+
+// 模块1：AI智能体中转路由（需要认证）
+app.use('/api/ai', authenticateToken, aiRoutes)
+
+// 模块5：专业咨询预约路由（需要认证）
+app.use('/api/professional', authenticateToken, professionalRoutes)
+
+// 模块集成路由（供模块3/模块4调用）
+app.use('/api/module', authenticateToken, moduleIntegrationRoutes)
 
 const send = (res, code, data = null, message = 'ok') => {
   res.json({ code, data, message })
@@ -99,8 +135,28 @@ app.get('/api/auth/me', (req, res) => {
   }
 })
 
+// 用户信息接口（模块1调用）
+app.get('/api/user/info', authenticateToken, (req, res) => {
+  const userId = req.query.userId || (req.user && req.user.uid) || req.headers['x-user-id']
+  if (!userId) {
+    return send(res, 401, null, '未登录')
+  }
+
+  const users = loadUsers()
+  const user = users.find(u => u.id === userId)
+  if (!user) {
+    return send(res, 404, null, '用户不存在')
+  }
+
+  return send(res, 200, { id: user.id, username: user.username, email: user.email }, 'ok')
+})
+
 app.get('/api/health', (req, res) => send(res, 200, { status: 'ok' }, 'healthy'))
 
 app.listen(PORT, () => {
-  console.log(`Auth backend running at http://localhost:${PORT}`)
+  console.log(`Backend server running at http://localhost:${PORT}`)
+  console.log('Module 1: Emotion Monitor routes registered at /api/emotion')
+  console.log('Module 1: AI routes registered at /api/ai')
+  console.log('Module 5: Professional routes registered at /api/professional')
+  console.log('Module Integration: Integration routes registered at /api/module')
 })
